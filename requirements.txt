@@ -1,0 +1,37 @@
+# --- Perception ---
+vosk                  # offline speech-to-text
+openwakeword          # offline wake word detection
+sounddevice           # microphone audio capture
+
+# --- Action ---
+pyttsx3               # offline text-to-speech
+pygame                # audio playback (music/sfx, per your existing fix)
+
+# --- Cognition / LLM ---
+ollama                # local LLM runtime client
+anthropic             # Claude API client
+openai                # optional, if you want GPT models too
+
+# --- Memory ---
+# sqlite3 is stdlib, no install needed
+
+# --- Skills / Integrations ---
+playwright            # browser automation
+pywinauto             # windows desktop automation
+pyautogui             # windows input simulation
+apscheduler           # reminders/scheduling
+watchdog              # file system monitoring
+
+# --- Interfaces (future React UI bridge) ---
+fastapi
+uvicorn
+websockets
+
+# --- Core infra ---
+pydantic-settings     # typed config management
+loguru                # structured logging
+pyyaml
+
+# --- Testing ---
+pytest
+pytest-asyncio

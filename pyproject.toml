@@ -1,0 +1,9 @@
+[project]
+name = "jarvis"
+version = "0.1.0"
+description = "Modular AI desktop assistant with plugin-based skill architecture"
+requires-python = ">=3.12"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

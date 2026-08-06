@@ -1,0 +1,34 @@
+# Central configuration. Loaded and validated at startup by core/config_manager.py
+# via pydantic-settings. Nothing in the codebase should hardcode a value that
+# belongs here -- if you're tempted to hardcode, add it here instead.
+
+app:
+  name: "Jarvis"
+  environment: "development"   # development | production
+
+perception:
+  wake_word:
+    backend: "openwakeword"    # Strategy: swap without touching perception/wake_word.py callers
+    keyword: "hey_jarvis"
+  stt:
+    backend: "vosk"
+    model_path: "models/vosk-model-small-en-us"
+
+action:
+  tts:
+    backend: "pyttsx3"
+    rate: 175
+
+cognition:
+  llm:
+    backend: "ollama"          # ollama | anthropic | openai
+    model: "llama3"
+  planner:
+    fast_path_enabled: true    # try intent_classifier before invoking full LLM planner
+  memory:
+    short_term_max_turns: 20
+    db_path: "data/memory.db"
+
+logging:
+  level: "INFO"
+  log_path: "data/logs/jarvis.log"

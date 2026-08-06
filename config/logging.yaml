@@ -1,0 +1,13 @@
+# Loguru sink configuration, loaded by core/logger.py.
+# Kept separate from config.yaml so log routing/rotation/format can change
+# independently of application behavior.
+
+sinks:
+  console:
+    level: "INFO"
+    format: "<green>{time}</green> | <level>{level}</level> | {message}"
+  file:
+    level: "DEBUG"
+    path: "data/logs/jarvis.log"
+    rotation: "10 MB"
+    retention: "7 days"
