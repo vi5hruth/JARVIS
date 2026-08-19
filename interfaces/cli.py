@@ -2,10 +2,11 @@
 cli.py
 
 Entry point for running Jarvis from the terminal. Composition root: wires up
-logging, skill discovery, and the orchestrator, then runs a simple input
-loop. Contains no business logic of its own.
+logging, skill discovery, TTS, and the orchestrator, then runs a simple
+input loop. Contains no business logic of its own.
 """
 
+from action.tts.pyttsx3_engine import Pyttsx3Engine
 from core.logger import setup_logging, get_logger
 from core.orchestrator import Orchestrator
 from skills.registry import discover
@@ -17,6 +18,7 @@ def main():
     setup_logging()
     discover()
     orchestrator = Orchestrator()
+    tts = Pyttsx3Engine()
 
     print("Jarvis (text mode) -- type 'quit' to exit.\n")
 
@@ -36,6 +38,8 @@ def main():
 
         response = orchestrator.handle_text(user_input)
         print(f"Jarvis: {response}\n")
+        tts.speak(response)
+        tts.wait_until_done()
 
 
 if __name__ == "__main__":

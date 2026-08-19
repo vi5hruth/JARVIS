@@ -9,7 +9,7 @@ can prove the rest of the pipeline works in isolation first. This entire
 _route() method gets replaced by cognition/planner.py later -- nothing else
 in this file, or in executor.py, will need to change when that happens.
 """
-
+from action.response_generator import ResponseGenerator
 from action.executor import Executor, ToolCall
 from core.context import Context
 from core.logger import get_logger
@@ -20,6 +20,7 @@ log = get_logger("orchestrator")
 class Orchestrator:
     def __init__(self):
         self.executor = Executor()
+        self.response_generator = ResponseGenerator()
 
     def _route(self, text: str) -> list[ToolCall]:
         """TEMPORARY hardcoded routing. Replaced by the LLM planner later."""
@@ -46,13 +47,6 @@ class Orchestrator:
         context.skill_results = results
 
         # Turn results into a simple response string (real response_generator.py comes later)
-        parts = []
-        for result in results:
-            if result.success:
-                parts.append(str(result.data))
-            else:
-                parts.append(f"Error: {result.error}")
-
-        context.response_text = " | ".join(parts)
+        context.response_text = self.response_generator.generate(results)
         log.info(f"[{context.request_id}] Response: {context.response_text}")
         return context.response_text
