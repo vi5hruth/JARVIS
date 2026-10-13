@@ -6,12 +6,10 @@ Configures loguru for consistent logging across all modules: console output
 """
 
 import sys
-from pathlib import Path
 
 from loguru import logger
 
-from core.config_manager import get_settings
-
+from core.config_manager import get_settings, resolve_path
 _configured = False
 
 
@@ -22,7 +20,7 @@ def setup_logging() -> None:
         return
 
     settings = get_settings()
-    log_path = Path(settings.logging.log_path)
+    log_path = resolve_path(settings.logging.log_path)
     log_path.parent.mkdir(parents=True, exist_ok=True)
 
     logger.remove()  # remove loguru's default handler

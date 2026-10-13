@@ -15,7 +15,10 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 CONFIG_PATH = PROJECT_ROOT / "config" / "config.yaml"
-
+def resolve_path(path: str | Path) -> Path:
+    """Resolve a path from config relative to the project root."""
+    p = Path(path)
+    return p if p.is_absolute() else PROJECT_ROOT / p
 
 class WakeWordConfig(BaseModel):
     backend: str
@@ -52,7 +55,7 @@ class LoggingConfig(BaseModel):
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+    model_config = SettingsConfigDict(env_file=PROJECT_ROOT / ".env", extra="ignore")
 
     # Secrets / environment-specific values (from .env)
     anthropic_api_key: str = ""

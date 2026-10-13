@@ -10,14 +10,14 @@ either of those files.
 import sqlite3
 from pathlib import Path
 
-from core.config_manager import get_settings
+from core.config_manager import get_settings, resolve_path
 from skills.base_skill import BaseSkill, SkillResult
 from skills.registry import register_skill
 
 
 def _get_db_path() -> Path:
     settings = get_settings()
-    return Path(settings.memory.db_path)
+    return resolve_path(settings.memory.db_path)
 
 
 def _ensure_table():
