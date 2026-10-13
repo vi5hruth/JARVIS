@@ -10,7 +10,7 @@ from functools import lru_cache
 from pathlib import Path
 
 import yaml
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -23,6 +23,8 @@ def resolve_path(path: str | Path) -> Path:
 class WakeWordConfig(BaseModel):
     backend: str
     keyword: str
+    threshold: float = Field(default=0.5, ge=0.0, le=1.0)
+    consecutive_frames: int = Field(default=2, ge=1)
 
 
 class STTConfig(BaseModel):

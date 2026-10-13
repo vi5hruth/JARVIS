@@ -10,6 +10,8 @@ perception:
   wake_word:
     backend: "openwakeword"    # Strategy: swap without touching perception/wake_word.py callers
     keyword: "hey_jarvis"
+    threshold: 0.15
+    consecutive_frames: 2
   stt:
     backend: "vosk"
     model_path: "models/vosk-model-small-en-us"
